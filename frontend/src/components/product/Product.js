@@ -8,7 +8,7 @@ const Product = ({ product, col }) => {
                 <img
                     className="card-img-top mx-auto"
                     src={product.images[0].url}
-                    alt="FruitPP" 
+                    alt="FruitPP"
                 />
                 <div className="card-body d-flex flex-column">
                     <h5 className="card-title">
@@ -26,6 +26,6 @@ const Product = ({ product, col }) => {
             </div>
         </div>
     )
-}
+}   
 
 export default Product

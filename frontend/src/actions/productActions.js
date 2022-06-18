@@ -29,16 +29,13 @@ export const getProducts = (keyword = '', currentPage = 1, price, category, rati
             payload: data
         })
 
-    }
-    catch(error){
+    } catch (error) {
         dispatch({
             type: ALL_PRODUCTS_FAIL,
             payload: error.response.data.message
         })
-
     }
 }
-
 
 
 
@@ -69,3 +66,4 @@ export const clearErrors = () => async (dispatch) => {
         type: CLEAR_ERRORS
     })
 }
+

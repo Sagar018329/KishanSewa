@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 const Search = ({ navigate }) => {
 
-    const [keyword, setKeyword] = useState(null);
+    const [keyword, setKeyword] = useState('');
 
     const searchHandler = (e) => {
         e.preventDefault()

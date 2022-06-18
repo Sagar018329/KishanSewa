@@ -72,25 +72,21 @@ const Home = ({ match }) => {
                                         <div className="px-5">
                                             <Slider
                                              range
-                                                // marks={{
-                                                //     1: `NRs.1`,
-                                                //     1000: `NRs.1000`
-                                                // }}
-                                                // min={1}
-                                                // max={1000}
-                                                // defaultValue={[1, 1000]}
-                                                // tipFormatter={value => `NRs.${value}`}
-                                                // tipProps={{
-                                                //     placement: "top",
-                                                //     visible: true
-                                                // }}
-                                                // value={price}
-                                                // onChange={price => setPrice(price)}
-                                                className="t-slider"
-                                                min={0} 
+                                                marks={{
+                                                    1: `NRs.1`,
+                                                    1000: `NRs.1000`
+                                                }}
+                                                min={1}
                                                 max={1000}
+                                                defaultValue={[1, 1000]}
+                                                tipFormatter={value => `NRs.${value}`}
+                                                tipProps={{
+                                                    placement: "top",
+                                                    visible: true
+                                                }}
                                                 value={price}
                                                 onChange={price => setPrice(price)}
+                                                
                                             />
 
                                             <hr className="my-5" />

@@ -7,10 +7,7 @@ const reducer = combineReducers({
   products:productsReducer  ,
   productDetails: productDetailsReducer
 })
-
-
 let initialState = {
-    
 }
 
 const middlware = [thunk];

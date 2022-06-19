@@ -32,6 +32,7 @@ const Home = ({ match }) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
+    console.log(products)
 
     const { loading, products, error, productsCount, resPerPage, filteredProductsCount } = useSelector(state => state.products)
 
@@ -147,14 +148,14 @@ const Home = ({ match }) => {
 
                                     <div className="col-6 col-md-9">
                                         <div className="row">
-                                            {products.map(product => (
+                                            {products && products.map(product => (
                                                 <Product key={product._id} product={product} col={4} />
                                             ))}
                                         </div>
                                     </div>
                                 </Fragment>
                             ) : (
-                                    products.map(product => (
+                                products && products.map(product => (
                                         <Product key={product._id} product={product} col={3} />
                                     ))
                                 )}

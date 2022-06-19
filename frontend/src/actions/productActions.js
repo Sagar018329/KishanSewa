@@ -23,6 +23,7 @@ export const getProducts = (keyword = '', currentPage = 1, price, category, rati
         }
 
         const { data } = await axios.get(link)
+        console.log(data)
 
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,
@@ -30,6 +31,7 @@ export const getProducts = (keyword = '', currentPage = 1, price, category, rati
         })
 
     } catch (error) {
+        console.log(error)
         dispatch({
             type: ALL_PRODUCTS_FAIL,
             payload: error.response.data.message

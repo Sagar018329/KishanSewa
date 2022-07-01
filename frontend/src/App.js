@@ -54,7 +54,7 @@ function App() {
     <Route path="/password/forgot" element={<ForgotPassword/> } exact/>
     <Route path="/password/reset/:token" element={<NewPassword/> } exact/>
     <Route path="/cart" element={<Cart/> } exact />
-    <Route path="/shipping" element={<Shipping/> }  />
+    <Route path="/shipping" element={<Shipping/> }  />  
     </Routes> 
     <Footer/>  
     </div>

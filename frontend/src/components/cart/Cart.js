@@ -34,7 +34,7 @@ const Cart = ({ history}) => {
 
     }
     const checkoutHandler = () => {
-        navigate("/login?redirect=shipping")//ysaha pani4
+        navigate("/login?redirect=shipping")//yaha pani
     }
 
   return (

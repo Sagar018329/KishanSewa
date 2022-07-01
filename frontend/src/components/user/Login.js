@@ -20,7 +20,7 @@ const Login = ({history,location}) => {
     const navigate = useNavigate();
      
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
-     const redirect = location.search ? location.search.split('=')[1] : '/'////errror yahi xaaa
+     const redirect = location.search ? location.search.split('=')[1] :"/" ////errror yahi xaaa
     
 
     useEffect(() => {

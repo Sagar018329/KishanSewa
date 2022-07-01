@@ -11,7 +11,7 @@ const Search = ({ navigate }) => {
         if (keyword.trim()) {
             navigate(`/search/${keyword}`)//yahaa xaa error
         } else {
-            navigate('/')
+            navigate("/")
         }
     }
 

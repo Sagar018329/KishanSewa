@@ -17,10 +17,10 @@ const Login = ({history,location}) => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(location);
      
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
-     const redirect = location.search ? location.search.split('=')[1] :"/" ////errror yahi xaaa
+     const redirect = location ? location.split('=')[1] :"/" ////errror yahi xaaa
     
 
     useEffect(() => {

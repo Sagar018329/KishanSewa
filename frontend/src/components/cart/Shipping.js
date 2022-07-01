@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingInfo } from '../../actions/cartActions'
 import { useNavigate } from 'react-router-dom'
 import { countries } from 'countries-list'
+import CheckoutSteps from './CheckoutSteps'
 
 
 const Shipping = ({ history}) => {
-
+    
     const countriesList = Object.values(countries)
     const { shippingInfo } = useSelector(state => state.cart)
     const [address, setAddress] = useState(shippingInfo.address)
@@ -23,12 +24,14 @@ const Shipping = ({ history}) => {
         e.preventDefault()
 
         dispatch(saveShippingInfo({ address, city, phoneNo, postalCode, country }))
-        navigate("/confirm")
+        navigate("/order/confirm")
     }
 
   return (
     <Fragment>
         <MetaData title={'Shipping Info'} />
+
+        <CheckoutSteps shipping />
         <div className="row wrapper">
                 <div className="col-10 col-lg-5">
                     <form className="shadow-lg" onSubmit={submitHandler}>

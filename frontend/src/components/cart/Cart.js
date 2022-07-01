@@ -12,6 +12,7 @@ const Cart = ({ history}) => {
     const dispatch= useDispatch();
     const navigate=useNavigate()
     const { cartItems } = useSelector(state => state.cart)
+    const { isAuthenticated } = useSelector(state => state.auth);
 
     const removeCartItemHandler = (id) => {
         dispatch(removeItemFromCart(id))
@@ -34,9 +35,16 @@ const Cart = ({ history}) => {
 
     }
     const checkoutHandler = () => {
-        navigate("/login?redirect=shipping")//yaha pani
-    }
+        if (isAuthenticated) {
+           
+        navigate("/shipping")//yaha pani
+                     }
 
+        if(!isAuthenticated)
+        {
+            navigate("/login")  
+        }
+    }
   return (
     <Fragment>
         <MetaData title={'Your Cart'} />

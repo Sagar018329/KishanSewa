@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import { BrowserRouter as Router,Routes,Route}from 'react-router-dom'
 
 import './App.css';
@@ -10,6 +10,13 @@ import ProductDetails from './components/product/ProductDetails'
 
 import Cart from './components/cart/Cart'
 import Shipping from './components/cart/Shipping'
+import ConfirmOrder from './components/cart/ConfirmOrder';
+import Payment from './components/cart/Payment'
+
+
+// Payment
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 
 
 import Login from './components/user/Login'
@@ -23,6 +30,8 @@ import UpdatePassword from './components/user/UpdatePassword';
 import ForgotPassword from './components/user/ForgotPassword';
 import NewPassword from './components/user/NewPassword';
 
+import axios from 'axios';
+import Khalti from './components/Khalti/Khalti';
 
 // import ProtectedRoute from './components/route/ProtectedRoute';///ask how to make protected route
 
@@ -31,10 +40,19 @@ import NewPassword from './components/user/NewPassword';
 
 function App() {
 
+  const [stripeApiKey, setStripeApiKey] = useState('');
+
 
   useEffect(() => {
     store.dispatch(loadUser())
 
+    async function getStripApiKey() {
+      const { data } = await axios.get('/api/v1/stripeapi');
+
+      setStripeApiKey(data.stripeApiKey)
+    }
+
+    getStripApiKey();
 
   }, [])
 
@@ -48,13 +66,24 @@ function App() {
     <Route path="/product/:id" element  ={<ProductDetails/> } exact />
     <Route path="/login" element={<Login/> } />
     <Route path="/Register" element={<Register/> } />
-    <Route path="/me" element={<Profile/> }exact />
+
+    <Route path="/me" element={<Profile/> }exact />  
     <Route path="/me/update" element={<UpdateProfile/> }exact />
     <Route path="/password/update" element={<UpdatePassword/> }exact />
+    <Route path="/shipping" element={<Shipping/> }  />  
+    <Route path="/order/confirm" element={<ConfirmOrder/> }  />  
+
     <Route path="/password/forgot" element={<ForgotPassword/> } exact/>
     <Route path="/password/reset/:token" element={<NewPassword/> } exact/>
     <Route path="/cart" element={<Cart/> } exact />
-    <Route path="/shipping" element={<Shipping/> }  />  
+    
+    {/* {stripeApiKey &&(
+            <Elements  stripe={loadStripe(stripeApiKey)}>
+              <Route path="/payment" element={<Payment/> } />
+            </Elements>)
+          } */}
+         <Route path="/payment" element={<Khalti/> } exact />
+         
     </Routes> 
     <Footer/>  
     </div>

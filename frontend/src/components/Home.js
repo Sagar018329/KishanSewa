@@ -1,3 +1,5 @@
+
+/*password Sagars*/
 import React, { Fragment, useState, useEffect } from 'react'
 import Pagination from 'react-js-pagination'
 import Slider from 'rc-slider'
@@ -32,7 +34,7 @@ const Home = ({ match }) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
-    console.log(products)
+    
 
     const { loading, products, error, productsCount, resPerPage, filteredProductsCount } = useSelector(state => state.products)
 
@@ -148,15 +150,15 @@ const Home = ({ match }) => {
 
                                     <div className="col-6 col-md-9">
                                         <div className="row">
-                                            {products && products.map(product => (
+                                            { products.map(product => (
                                                 <Product key={product._id} product={product} col={4} />
                                             ))}
                                         </div>
                                     </div>
                                 </Fragment>
                             ) : (
-                                products && products.map(product => (
-                                        <Product key={product._id} product={product} col={3} />
+                                 products.map(product => (
+                                        <Product key={product._id} product={product} col={4} />
                                     ))
                                 )}
 

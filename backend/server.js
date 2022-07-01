@@ -3,19 +3,27 @@ const app=require('./app')
 const connectDatabase =require('./config/database')
 
 const dotenv=require('dotenv');
+const cloudinary = require('cloudinary');
 
 
 //handles the uncut expectations
 process.on('uncaughtException',err=>{
     console.log(`ERROR: ${err.stack}`);
     console.log('Sutting down  due to uncut' )
-    
         process.exit(1);
      
 })
 
 //setting config
 dotenv.config({path:'backend/config/config.env'})
+
+//setting up cloudinary configuration
+cloudinary.config({
+    cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+    api_key:process.env.CLOUDINARY_API_KEY,
+    api_secret:process.env.CLOUDINARY_API_SECRET
+
+})
 
 //connecting to database
 connectDatabase();

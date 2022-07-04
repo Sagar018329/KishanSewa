@@ -1,5 +1,5 @@
-import React,{useEffect,useState} from 'react'
-import { BrowserRouter as Router,Routes,Route}from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import './App.css';
 import Header from './components/layout/Header'
@@ -14,9 +14,9 @@ import ConfirmOrder from './components/cart/ConfirmOrder';
 import Payment from './components/cart/Payment'
 
 
-// Payment
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
+// // Payment
+// import {Elements} from '@stripe/react-stripe-js';
+// import {loadStripe} from '@stripe/stripe-js';
 
 
 import Login from './components/user/Login'
@@ -32,6 +32,7 @@ import NewPassword from './components/user/NewPassword';
 
 import axios from 'axios';
 import Khalti from './components/Khalti/Khalti';
+import Esewa from './components/Esewa/Esewa'
 
 // import ProtectedRoute from './components/route/ProtectedRoute';///ask how to make protected route
 
@@ -58,36 +59,36 @@ function App() {
 
   return (
     <Router>
-    <div className="App">
-    <Header/>
-    <Routes>
-    <Route path="/" element  ={<Home/>} exact />
-    <Route path="/search/:keyword" element  ={<Home/>}  />
-    <Route path="/product/:id" element  ={<ProductDetails/> } exact />
-    <Route path="/login" element={<Login/> } />
-    <Route path="/Register" element={<Register/> } />
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} exact />
+          <Route path="/search/:keyword" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetails />} exact />
+          <Route path="/login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
 
-    <Route path="/me" element={<Profile/> }exact />  
-    <Route path="/me/update" element={<UpdateProfile/> }exact />
-    <Route path="/password/update" element={<UpdatePassword/> }exact />
-    <Route path="/shipping" element={<Shipping/> }  />  
-    <Route path="/order/confirm" element={<ConfirmOrder/> }  />  
+          <Route path="/me" element={<Profile />} exact />
+          <Route path="/me/update" element={<UpdateProfile />} exact />
+          <Route path="/password/update" element={<UpdatePassword />} exact />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/order/confirm" element={<ConfirmOrder />} />
 
-    <Route path="/password/forgot" element={<ForgotPassword/> } exact/>
-    <Route path="/password/reset/:token" element={<NewPassword/> } exact/>
-    <Route path="/cart" element={<Cart/> } exact />
-    
-    {/* {stripeApiKey &&(
+          <Route path="/password/forgot" element={<ForgotPassword />} exact />
+          <Route path="/password/reset/:token" element={<NewPassword />} exact />
+          <Route path="/cart" element={<Cart />} exact />
+
+          {/* {stripeApiKey &&(
             <Elements  stripe={loadStripe(stripeApiKey)}>
               <Route path="/payment" element={<Payment/> } />
             </Elements>)
           } */}
-         <Route path="/payment" element={<Khalti/> } exact />
-         
-    </Routes> 
-    <Footer/>  
-    </div>
-  </Router> 
+          <Route path="/payment" element={<Esewa />} exact />
+
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

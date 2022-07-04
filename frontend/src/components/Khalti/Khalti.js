@@ -7,7 +7,7 @@ const Khalti = () => {
   return (
     <Fragment>
         <button onClick={()=>checkout.show({amount: 1000})}>Pay Vai Khalti
-            </button>
+            </button> 
     </Fragment>
   )
 }

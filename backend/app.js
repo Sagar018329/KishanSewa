@@ -5,6 +5,8 @@ const cookieParser=require('cookie-parser')
 const bodyParser=require('body-parser');
 const fileUpload = require('express-fileupload')
 const errorMiddleware=require('./middlewares/errors')
+const dotenv= require('dotenv');
+dotenv.config({path: 'backend/config/config.env'})
 
  
 app.use(express.json());

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect,useState } from 'react'
 
 import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
@@ -9,7 +9,16 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 
+import KhaltiCheckout from "khalti-checkout-web";
+// import config from '../components/Khalti/khaltiConfig'
+
 import axios from 'axios'
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import config from '../Khalti/khaltiConfig'
+import store from '../../store'
+import { loadUser } from '../../actions/userActions'
+import { useNavigate } from 'react-router-dom'
 
 const options = {
     style: {
@@ -21,26 +30,27 @@ const options = {
         }
     }
 }
-
-const Payment = ({ history }) => {
-
+    const Checkout = (props) => {
+    console.log(props.stripeApiKey)
     const alert = useAlert();
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
+    const navigate= useNavigate();
 
     const { user } = useSelector(state => state.auth)
     const { cartItems, shippingInfo } = useSelector(state => state.cart);
-    const { error } = useSelector(state => state.newOrder)
+    // const { error } = useSelector(state => state.newOrder)
+    let checkout = new KhaltiCheckout(config);
 
     useEffect(() => {
 
-        if (error) {
-            alert.error(error)
-            // dispatch(clearErrors())
-        }
+        // if (error) {
+        //     alert.error(error)
+        //     // dispatch(clearErrors())
+        // }
 
-    }, [dispatch, alert, error])
+    }, [dispatch, alert])
 
     const order = {
         orderItems: cartItems,
@@ -56,7 +66,8 @@ const Payment = ({ history }) => {
     }
 
     const paymentData = {
-        amount: Math.round(orderInfo.totalPrice * 100)
+        amount: Math.round(orderInfo.totalPrice * 100),
+        apiKey: props.stripeApiKey
     }
 
     const submitHandler = async (e) => {
@@ -77,7 +88,6 @@ const Payment = ({ history }) => {
 
             const clientSecret = res.data.client_secret;
 
-            console.log(clientSecret);
 
             if (!stripe || !elements) {
                 return;
@@ -100,15 +110,17 @@ const Payment = ({ history }) => {
 
                 // The payment is processed or not
                 if (result.paymentIntent.status === 'succeeded') {
+                   
+                    //to do new order
 
-                    order.paymentInfo = {
-                        id: result.paymentIntent.id,
-                        status: result.paymentIntent.status
-                    }
+                    // order.paymentInfo = {
+                    //     id: result.paymentIntent.id,
+                    //     status: result.paymentIntent.status
+                    // }
 
                     // dispatch(createOrder(order))
 
-                    history.push('/success')
+                    navigate('/success')
                 } else {
                     alert.error('There is some issue while payment processing')
                 }
@@ -121,9 +133,13 @@ const Payment = ({ history }) => {
         }
     }
 
-    return (
+    return ( 
+        
         <Fragment>
+           
+
             <MetaData title={'Payment'} />
+            
 
             <CheckoutSteps shipping confirmOrder payment />
 
@@ -160,15 +176,23 @@ const Payment = ({ history }) => {
                                 options={options}
                             />
                         </div>
-
-
                         <button
                             id="pay_btn"
                             type="submit"
                             className="btn btn-block py-3"
                         >
-                          Pay  {/* Pay {` - ${orderInfo && orderInfo.totalPrice}`} */}
+                          Pay NRs.{` - ${orderInfo && orderInfo.totalPrice}`} /-
+
                         </button>
+                        
+                        <Fragment>
+                            <button 
+                            id="pay_btn"
+                            type="submit"
+                            className="btn btn-block py-3"
+                            onClick={()=>checkout.show({amount:orderInfo.totalPrice*100})}>Pay Vai Khalti- NRs. - {orderInfo.totalPrice} /-
+                                </button> 
+                            </Fragment>
 
                     </form>
                 </div>
@@ -178,4 +202,28 @@ const Payment = ({ history }) => {
     )
 }
 
+
+const Payment = ({ history}) => {
+    const[stripeApiKey , setStripeApiKey] = useState('')
+    useEffect(() => {
+        store.dispatch(loadUser())
+        async function getStripApiKey() {
+          const { data } = await axios.get('/api/v1/stripeapi');
+          console.log(data.stripeApiKey)
+          setStripeApiKey(data.stripeApiKey)
+        }
+    
+        getStripApiKey();
+    
+      }, [])
+console.log(stripeApiKey)
+      return (
+       <div>
+         {stripeApiKey ? <Elements  stripe={loadStripe(stripeApiKey)}>
+            <Checkout stripeApiKey={stripeApiKey}/>
+        </Elements> : <div>Loading....</div>}
+
+       </div>
+      )
+    }
 export default Payment

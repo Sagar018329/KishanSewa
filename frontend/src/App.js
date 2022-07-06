@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import './App.css';
@@ -14,25 +14,25 @@ import ConfirmOrder from './components/cart/ConfirmOrder';
 import Payment from './components/cart/Payment'
 
 
-// // Payment
+// // // Payment
 // import {Elements} from '@stripe/react-stripe-js';
 // import {loadStripe} from '@stripe/stripe-js';
 
 
 import Login from './components/user/Login'
 import Register from './components/user/Register'
-import { loadUser } from './actions/userActions'
+// import { loadUser } from './actions/userActions'
 import Profile from './components/user/Profile'
-import store from './store'
+// import store from './store'
 
 import UpdateProfile from './components/user/UpdateProfile';
 import UpdatePassword from './components/user/UpdatePassword';
 import ForgotPassword from './components/user/ForgotPassword';
 import NewPassword from './components/user/NewPassword';
 
-import axios from 'axios';
-import Khalti from './components/Khalti/Khalti';
-import Esewa from './components/Esewa/Esewa'
+// import axios from 'axios';
+// import Khalti from './components/Khalti/Khalti';
+// import Esewa from './components/Esewa/Esewa'
 
 // import ProtectedRoute from './components/route/ProtectedRoute';///ask how to make protected route
 
@@ -41,21 +41,9 @@ import Esewa from './components/Esewa/Esewa'
 
 function App() {
 
-  const [stripeApiKey, setStripeApiKey] = useState('');
+  // const [stripeApiKey, setStripeApiKey] = useState('');
 
-
-  useEffect(() => {
-    store.dispatch(loadUser())
-
-    async function getStripApiKey() {
-      const { data } = await axios.get('/api/v1/stripeapi');
-
-      setStripeApiKey(data.stripeApiKey)
-    }
-
-    getStripApiKey();
-
-  }, [])
+  
 
   return (
     <Router>
@@ -77,13 +65,15 @@ function App() {
           <Route path="/password/forgot" element={<ForgotPassword />} exact />
           <Route path="/password/reset/:token" element={<NewPassword />} exact />
           <Route path="/cart" element={<Cart />} exact />
+          <Route path="/payment" element={
+          <Payment  />
+} />
 
           {/* {stripeApiKey &&(
             <Elements  stripe={loadStripe(stripeApiKey)}>
-              <Route path="/payment" element={<Payment/> } />
             </Elements>)
           } */}
-          <Route path="/payment" element={<Esewa />} exact />
+          {/* <Route path="/payment" element={<Khalti />} exact /> */}
 
         </Routes>
         <Footer />

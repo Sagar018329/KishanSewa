@@ -5,9 +5,9 @@ var Details= JSON.parse(localStorage.getItem('cartItems'));
 const config = {
   // replace this key with yours
   publicKey: myKey.publicTestKey,
-  productIdentity: Details[0].product,
-  productName: Details[0].name,
-  productUrl: Details[0].image,
+  productIdentity: "123",
+  productName:"ABC",
+  productUrl: "https://localhost:3000",
   eventHandler: {
     onSuccess(payload) {
       // hit merchant api for initiating verfication

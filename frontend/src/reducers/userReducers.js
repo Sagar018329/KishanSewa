@@ -134,7 +134,7 @@ export const userReducer = (state = {}, action) => {
 
         case UPDATE_PROFILE_RESET:
         case UPDATE_PASSWORD_RESET:
-        case UPDATE_USER_RESET:
+        case UPDATE_USER_RESET: 
             return {
                 ...state,
                 isUpdated: false

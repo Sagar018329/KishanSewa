@@ -5,12 +5,11 @@ import CheckoutSteps from './CheckoutSteps'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-// import { createOrder, clearErrors } from '../../actions/orderActions'
+import { createOrder, clearErrors } from '../../actions/orderActions'
 
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 
 import KhaltiCheckout from "khalti-checkout-web";
-// import config from '../components/Khalti/khaltiConfig'
 
 import axios from 'axios'
 import {Elements} from '@stripe/react-stripe-js';
@@ -40,17 +39,17 @@ const options = {
 
     const { user } = useSelector(state => state.auth)
     const { cartItems, shippingInfo } = useSelector(state => state.cart);
-    // const { error } = useSelector(state => state.newOrder)
+    const { error } = useSelector(state => state.newOrder)
     let checkout = new KhaltiCheckout(config);
 
     useEffect(() => {
 
-        // if (error) {
-        //     alert.error(error)
-        //     // dispatch(clearErrors())
-        // }
+        if (error) {
+            alert.error(error)
+            dispatch(clearErrors())
+        }
 
-    }, [dispatch, alert])
+    }, [dispatch, alert,error])
 
     const order = {
         orderItems: cartItems,
@@ -113,12 +112,12 @@ const options = {
                    
                     //to do new order
 
-                    // order.paymentInfo = {
-                    //     id: result.paymentIntent.id,
-                    //     status: result.paymentIntent.status
-                    // }
+                    order.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status
+                    }
 
-                    // dispatch(createOrder(order))
+                    dispatch(createOrder(order))
 
                     navigate('/success')
                 } else {
@@ -189,7 +188,7 @@ const options = {
                             <button 
                             id="pay_btn"
                             type="submit"
-                            className="btn btn-block py-3"
+                            className="btn btn-block py-4"
                             onClick={()=>checkout.show({amount:orderInfo.totalPrice*100})}>Pay Vai Khalti- NRs. - {orderInfo.totalPrice} /-
                                 </button> 
                             </Fragment>

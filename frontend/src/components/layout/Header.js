@@ -17,6 +17,10 @@ const Header=()=>{
     const navigate = useNavigate();
 
     const { user, loading } = useSelector(state => state.auth)
+    function isEmpty(obj) {
+        if(obj !== undefined && obj !== null) return Object.keys(obj).length === 0;
+        else return true
+    }
     const {cartItems}= useSelector(state => state.cart)
 
     const logoutHandler = () => {
@@ -45,7 +49,7 @@ const Header=()=>{
                         <span id="cart" className="ml-3">Cart</span>
                         <span className="ml-1" id="cart_count">{cartItems.length}</span>
                     </Link>
-                    {user ? (
+                    {!isEmpty(user) ? (
                         <div className="ml-4 dropdown d-inline">
                             <Link to="#!" className="btn dropdown-toggle text-white mr-4" type="button" id="dropDownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
